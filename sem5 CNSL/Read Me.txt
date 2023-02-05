@@ -1,0 +1,10 @@
+SPPU Second Year Engineering Computer Department
+Computer Networks Lab(Sem 5)
+
+Name: Aditya Magdum
+College: Pune Institute of Computer Technology
+LinkedIn: linkedin.com/in/aditya-magdum-
+Github: https://github.com/magdum-adiraj
+
+Assig :DNS lookup
+Assig: Socket Programming
