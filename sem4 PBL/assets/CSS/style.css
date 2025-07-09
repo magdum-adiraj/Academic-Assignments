@@ -1,0 +1,239 @@
+/* ########  Defaults ######## */
+
+
+nav,
+header,
+footer{
+    display: block;
+}
+
+body {
+    /* /* line-height: 1; */
+    margin: 0;
+    padding: 0;
+    background-image: url("bgm9.jpg");
+    background-repeat:no-repeat ;
+    background-size: cover;   
+    opacity: 0.8;   
+
+    /* background: center / cover repeat-y url("bgm9.jpg"); */
+}
+
+nav .container-fluid{
+    background-color: black;
+    border: black solid 2px;
+}
+
+
+
+/* .container{
+    width: 100%;
+    margin: auto;
+    padding-top: 4%;
+    padding-bottom: 4%;
+
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.row::after{
+    display: table;
+    clear: both;
+    content: "";
+} */
+
+li.nav-item a{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+li a.dropdown-item{
+    margin: 0px;
+}
+
+li.nav-item a{
+    font-size: 22px;
+}
+
+.container-fluid a.navbar-brand{
+    font-size: 40px;
+    font-family: "Luxurious Roman";
+}
+
+
+
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+
+h1.large{
+
+    color: white;
+    font-size: 60px;
+    margin-left: 0;
+    margin-top: 20px;
+    line-height: 70px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1.small{
+    text-align: center;
+}
+
+span{
+    color: orange;
+    font-family: 'Raleway';
+}
+
+h2.large{
+    color: rgb(168, 167, 167);
+    font-size: 28px;
+    margin-left: 0;
+    line-height: 70px;
+    font-family: 'Luxurious Roman';
+    text-align: center;
+}
+
+
+.col-12 ul.small li a{
+    font-family: 'Luxurious Roman';
+    font-size: 24px;
+    text-shadow: black 20px;
+    margin: 30px;
+}
+
+.col-12 h1.small{
+    color: rgb(136, 135, 135);
+    font-family: 'Luxurious Roman';
+    text-shadow: black 5px;
+    margin: 50px;
+
+}
+
+.col-12 li a{
+    text-decoration: none;
+    font-size: 36px;
+    color: white;
+
+}
+
+.col-12 ul li::before
+{
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: white; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+    
+}
+
+/* ######## Footer ######## */
+
+.centerdiv{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.centerdiv a{
+    height: 75px;
+    width: 75px;
+    background-color: #f5f6fa;
+    border-radius: 50px;
+    text-align: center;
+    margin-top:auto;
+    margin: 10px;
+    line-height: 100px;
+    box-shadow: 1px 4px 2px 2px;
+}
+
+footer h1{
+    color: white;
+    text-align: center;
+    font-family: "Raleway";
+}
+
+.centerdiv a i{
+    transition: all 0.3s linear;
+}
+
+.centerdiv a:hover i{
+    transform: scale(1.3);
+}
+
+h1.connect
+{
+    display: block;
+}
+
+
+
+
+.col-12 h2.xyz a{
+    color: orange;
+    text-align: center;
+    text-decoration: none;
+    font-family:'Luxurious Roman' ;
+    justify-content: center;
+}
+
+.col-12 h2.xyz{
+    text-align: center;
+}
+
+
+
+/* ######## Mobile ######## */
+
+@media screen and (max-width:680px)
+{
+    ul.topnav li:not(:nth-child(1))
+    {
+        display: none;
+    }
+
+    ul.topnav li.dropdown {
+        display: block;
+        float: right;
+    }
+
+    ul.topnav.responsive li.dropdown
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    ul.topnav.responsive{
+        position: relative;
+    }
+
+    ul.topnav.responsive li{
+        display: inline;
+        float: none;
+    }
+
+    ul.topnav.responsive li a{
+        display: block;
+        text-align: left;
+    }
+}

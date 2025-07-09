@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>About</title>
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/about.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Mochiy+Pop+P+One&family=Raleway:ital@1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<style>
+    body {
+    background-color: black;
+
+}
+</style>
+<body>
+
+    
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" ><span style="color: white; font-size: 33px;  font-family: 'Raleway';">Swasthya</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Explore
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="calorie">Calorie Counter</a></li>
+                            <li><a class="dropdown-item" href="bmi">BMI Report</a></li>
+                            <!-- <li><hr class="dropdown-divider"></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact">Contact</a>
+                      </li>
+        <li class="nav-item">
+                        <a class="nav-link" href="about">About</a>
+                    </li>
+{% if user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="logout">Logout</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link">Hello,{{user.username}}</a>
+              </li>
+                {% else %}
+                <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="signup">Sign Up</a>
+              </li>
+                {% endif %}
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <h1>The Workout</h1>
+
+    <p class="p">There is no limit to what you are capable of, physically and mentally. The Limit is about perseverance. The goal
+        is to push yourself past your individual limit.</p>
+    <p class="p">We believe that each person requires unique training for their personal abilities. Our Website provides variety
+        of features which will help you in your Daily Exercise ans Fitness and provide you the best Diet as well as
+        Workout Plans. There’s always a way to train hard and get results.</p>
+    <p class="p">We prioritize proper form and biomechanics with clear instructions. Our goal is to make you feel strong and
+        confident in yourself, no matter your level.</p>
+    <p class="p">We are excited to help you find your limit and push yourself past it. Now let’s do it!</p>
+
+    <h1>Our Team</h1> 
+
+  <div class="row" style="margin-left: 225px;">
+      <div class="col-6">
+        <div class="card" style="width: 18rem; height: 30rem; background-color: black;">
+            <img class="card-img-top" src="{% static 'IMAGES/avatar1.jpeg'%}" alt="Card image cap" style="border-radius: 150px;">
+            <div class="card-body">
+              <h5 class="card-title" style="color: white;">Aditya Magdum</h5>
+              <h6 style="color: white;">21251</h6>
+              <p class="card-text" style="color: white;">First Year Computer Engineering Student at Pune Institute of Computer Technology</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              <a  class="fa fa-facebook"></a>
+              <a  class="fa fa-twitter"></a>
+              <a  class="fa fa-instagram"></a>
+              <a  class="fa fa-linkedin"></a>
+
+
+              
+            
+            </div>
+        </div>
+      </div>  
+        <div class="col-6">
+            <div class="card" style="width: 18rem; height: 30rem; background-color: black;" >
+                <img class="card-img-top" src="{%static 'IMAGES/avatar2.jpeg'%}" alt="Card image cap" style="border-radius: 150px;">
+                <div class="card-body">
+                  <h5 class="card-title" style="color: white;">Atharva Mohite</h5>
+                  <h6 style="color: white;"> 21255</h6>
+                  <p class="card-text" style="color: white;">First Year Computer Engineering Student at Pune Institute of Computer Technology</p>
+                  <a  class="fa fa-facebook"></a>
+                  <a  class="fa fa-twitter"></a>
+                  <a  class="fa fa-instagram"></a>
+                  <a  class="fa fa-linkedin"></a>
+                </div>
+            </div>
+        </div>   
+  </div>
+
+
+  <div class="row" style="margin-left: 225px;">  
+    <div class="col-6">
+      <div class="card" style="width: 18rem; height: 30rem; background-color: black; margin-top: 60px;" >
+          <img class="card-img-top" src="{% static 'IMAGES/avatar3.jpeg'%}" alt="Card image cap" style=" border-radius: 150px;">
+          <div class="card-body">
+            <h5 class="card-title" style="color: white;">Viraj Nimbalkar </h5>
+            <h6  style="color: white">21259</h6>
+            <p class="card-text"  style="color: white">First Year Computer Engineering Student at Pune Institute of Computer Technology</p>
+            <a  class="fa fa-facebook"></a>
+            <a  class="fa fa-twitter"></a>
+            <a  class="fa fa-instagram"></a>
+            <a  class="fa fa-linkedin"></a>
+          </div>
+      </div>
+    </div>  
+      <div class="col-6">
+          <div class="card" style="width: 18rem; height: 30rem; background-color: black; margin-top:60px ;" >
+              <img class="card-img-top" src="{% static 'IMAGES/avatar4.jpeg'%}" alt="Card image cap" style="border-radius: 150px;" >
+              <div class="card-body">
+                <h5 class="card-title" style="color: white;">Unmesh Patil</h5>
+                <h6 style="color: white;">21264</h6>
+                <p class="card-text" style="color: white;">First Year Computer Engineering Student at Pune Institute of Computer Technology</p>
+                <a  class="fa fa-facebook"></a>
+                <a  class="fa fa-twitter"></a>
+                <a  class="fa fa-instagram"></a>
+                <a  class="fa fa-linkedin"></a>
+              </div>
+          </div>
+      </div>   
+     
+</div>
+
+    <!-- footer -->
+  <div class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4 col-xs-12">
+                  <div class="first">
+                      <h4>Our Features</h4>
+                      <ul>
+                      <li><a href="bmi" style="text-decoration: none; color: white;"><p>BMI Report</p></a></li>
+                      <li><a href="calorie" style="text-decoration: none; color: white;"><p>Calorie Counter</p></a></li>
+
+                      </ul>
+                  </div>
+              </div>
+
+              <div class="col-md-4 col-xs-12">
+                  <div class="second">
+                      <h4>Navigate</h4>
+                      <ul>
+                          <li><a href="home">Home</a></li>
+                          <li><a href="about">About</a></li>
+                          <li><a href="contact">Contact</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <!-- <hr> -->
+              <div class="col-md-4 col-xs-12">
+                  <div class="third">
+                      <h4> Contact</h4>
+                      <ul>
+                          <li><a>Pune Institute Of Computer Technology</a></li>
+                        <li><i class="far fa-envelope"></i><a>abc@gmail.com</a></li>
+                          <li><i class="far fa-envelope"></i><a>email@yahoo.com</a></li>
+
+
+                          <li><i class="fas fa-map-marker-alt"></i><a> Maharashtra , Pune </a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

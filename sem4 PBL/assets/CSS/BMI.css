@@ -1,0 +1,151 @@
+nav,
+header,
+footer{
+    display: block;
+}
+
+body {
+    /* /* line-height: 1; */
+    margin: 0;
+    padding: 0;
+    /* background-image: url("bgm9.jpg"); */
+    background-repeat:no-repeat ;
+    background-size: cover;   
+    opacity: 0.8;   
+
+    /* background: center / cover repeat-y url("bgm9.jpg"); */
+}
+
+nav .container-fluid{
+    background-color: black;
+    border: black solid 2px;
+}
+
+
+
+/* .container{
+    width: 100%;
+    margin: auto;
+    padding-top: 4%;
+    padding-bottom: 4%;
+
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.row::after{
+    display: table;
+    clear: both;
+    content: "";
+} */
+
+li.nav-item a{
+    margin-left: 50px;
+    margin-right: 50px;
+    font-family: "Raleway";
+}
+
+li a.dropdown-item{
+    margin: 0px;
+}
+
+li.nav-item a{
+    font-size: 22px;
+}
+
+.container-fluid a.navbar-brand{
+    font-size: 40px;
+    font-family: "Luxurious Roman";
+}
+
+
+
+
+*{margin: 0; padding: 0;font-family: 'Old Standard TT', serif;}
+.container{
+     display: grid;
+     justify-content: center;
+     /* align-content: center; */
+     margin-top: 50px;
+     min-height: 100vh;
+     grid-template-columns: 30vw;
+     grid-template-rows: repeat(3,10vh) 5vh repeat(2,10vh);
+     grid-gap: 10px;
+     
+}
+body{
+    background: black;
+    background-image: url("bg5.jpg");
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+
+
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-family: "Raleway";
+}
+.submit-btn{
+    background-color: turquoise;
+}
+.bmi-value{
+    background-color: rgb(158, 245, 209);
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+.status{
+    background-color: rgb(158, 245, 209);
+    display: grid;
+    grid-template-rows: 50% 50%;
+    
+}
+.container > div{
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    border-radius: 10px;
+}
+button,input{
+    min-width: 100%;
+    min-height: 100%;
+    border: none;
+    outline: none;
+    font-size: 1.5vw;
+    border-radius: 8px;
+}
+input{
+    background: #bbd9db;
+    text-indent: 0.5em;
+    max-width:100% ;
+    color: black;
+    outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+button{
+    background:black;
+    border: 1.5px solid white;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    
+}
+button:hover{
+    background: #7002ff;
+    color: white;
+    border-radius: 5    px;
+}

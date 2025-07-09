@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'CSS/BMI.css'%}">
+    <title>Document</title>
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Mochiy+Pop+P+One&family=Raleway:ital@1&display=swap"
+        rel="stylesheet">
+    <script src="{% static 'JS/BMI.js'%}" defer></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<style>
+body{
+    background: black;
+    background-repeat: no-repeat;
+
+
+}
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand"><span style="color: white; font-size: 33px;  font-family: 'Raleway';">Swasthya</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="home">Home</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Explore
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="calorie">Calorie Counter</a></li>
+                  <li><a class="dropdown-item" href="bmi">BMI Report</a></li>
+                  <!-- <li><hr class="dropdown-divider"></li> -->
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="contact">Contact</a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="about">About</a>
+              </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="logout">Logout</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link">Hello,{{user.username}}</a>
+              </li>
+                {% else %}
+                <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="signup">Sign Up</a>
+              </li>
+                {% endif %}
+              
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li> -->
+            </ul>
+            <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">  
+        <h1>BMI Calculator</h1>
+        <label>
+            <input id="h-input" type="number" placeholder="Enter Your Height in Centimeters: ">
+        </label>        
+        <label>
+            <input id="w-input" type="number" placeholder="Enter Your Weight in Kilogrames: ">
+        </label>            
+        <button type="submit" onclick="Calculate()">Calculate BMI</button>
+            
+        <div class="bmi-value">
+            <h4>BMI Value: </h4>
+            <div id="bmi-output"></div>
+        </div>
+        <div class="status">
+            <h4>Status: </h4>
+            <div id="bmi-status"></div>
+        </div>   
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: gunicorn PBLSE2.wsgi --log-files=-

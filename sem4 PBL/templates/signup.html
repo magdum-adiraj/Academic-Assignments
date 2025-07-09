@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap-grid.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap-5.1.3-dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Mochiy+Pop+P+One&family=Raleway:ital@1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/signup.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>SignUp</title>
+</head>
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    background-image: url("{% static 'IMAGES/bgm9.jpg'%}");
+    background-repeat:no-repeat ;
+    background-size: cover;
+    opacity: 0.8;
+}
+</style>
+<body>
+    <!-- <nav>
+        <ul class="topnav" id="dropdownClick">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a href="about.html">About</a>
+            </li>
+            <li>
+                <a href="#Contact">Contact</a>
+            </li>
+            <li class="topnav-right">
+                <a href="signup.html">Sign Up</a>
+            </li>
+            <li class="topnav-right">
+                <a href="login.html">Log In</a>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0);" onclick="dropdownMenu()">&#9776;</a>
+            </li>
+        </ul>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand"><span style="color: white; font-size: 33px;  font-family: 'Raleway';">Swasthya</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="home">Home</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Explore
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="calorie">Calorie Counter</a></li>
+                  <li><a class="dropdown-item" href="bmi">BMI Report</a></li>
+                  <!-- <li><hr class="dropdown-divider"></li> -->
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="contact">Contact</a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="about">About</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="signup">Sign Up</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li> -->
+            </ul>
+            <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+
+    <form action="signup" class="box" method="post">
+        {% csrf_token %}
+        <h1>Sign Up</h1>
+        <input type="email" name="email" placeholder="Email" name="">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password1" placeholder="Password" name="">
+         <input type="password" name="password2" placeholder="Confirm Password" name="">
+        <input type="submit" name="" value="Sign Up">
+
+        <h2>Already Registerd ? <a href="login">Login</a></h2>
+    </form>
+    <div>
+            {% for message in messages %}
+            <p align="center" style="color:white">{{message}}</p>
+        {% endfor %}
+        </div>
+
+    <!-- <script>
+        function dropdownMenu() {
+            var x = document.getElementById("dropdownClick");
+
+            if (x.className === "topnav") {
+                x.className += " responsive";
+                /* Change topnav to topnav.responsive */
+            }
+            else {
+                x.className = "topnav";
+            }
+        }
+    </script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>
