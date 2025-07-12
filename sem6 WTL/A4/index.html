@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Calculator</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" id="theme" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <h1>Calculator</h1>
+      <div class="all_rows">
+        <div class="all_rows">
+          <input type="text" name="result" class="result" id="result" value="" placeholder="Answer" readonly />
+          <input type="button" value="C" onclick="clearScreen()" id="clear" />
+        </div>
+        <input type="button" value="1" onclick="setSearch(1)" id="one" />
+        <input type="button" value="2" onclick="setSearch(2)" id="two" />
+        <input type="button" value="3" id="three" onclick="setSearch(3)" />
+        <input type="button" value="+" onclick="setSearch('+')" />
+      </div>
+      
+      <div class="all_rows">
+        <input type="button" value="4" id="four" onclick="setSearch(4)" />
+        <input type="button" value="5" id="five" onclick="setSearch(5)" />
+        <input type="button" value="6" id="six" onclick="setSearch(6)" />
+        <input type="button" value="-" onclick="setSearch('-')" />
+      </div>
+      <div class="all_rows">
+        <input type="button" value="7" id="seven" onclick="setSearch(7)" />
+        <input type="button" value="8" id="eight" onclick="setSearch(8)" />
+        <input type="button" value="9" id="nine" onclick="setSearch(9)" />
+        <input type="button" value="x" onclick="setSearch('*')" />
+      </div>
+      <div class="all_rows">
+        <input type="button" value="0" id="zero" onclick="setSearch(0)" />
+        <input type="button" value="/" onclick="setSearch('/')" />
+        <input type="button" value="." class="dot" onclick="setSearch('.')" />
+        <input type="button" value="=" onclick="result.value = eval(result.value||null)" />
+      </div>
+    </div>
+  </div>
+  <script src="calc.js"></script>
+</body>
+
+</html>
