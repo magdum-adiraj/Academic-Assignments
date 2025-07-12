@@ -1,0 +1,11 @@
+object sample{
+def main() {
+	var linesRDD = sc.textFile("C:/Users/DELL/Desktop/input.txt") // read input file 
+	var wordsRDD = linesRDD.flatMap(_.split(" ")) // split the words
+var wordsKvRdd=wordsRDD.map(word => (word,1)); // map the words with the frequency 
+var wordCounts=wordsKvRdd.reduceByKey(_+_) // calculate frequency of the word 
+wordCounts.saveAsTextFile("output.txt") // write output to external file 
+wordCounts.foreach(println) // print the word count line by line from external file
+}
+}
+defined object sample

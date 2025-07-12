@@ -1,0 +1,236 @@
+DSBDAL PRACTICE
+
+
+*Assignment 1*
+1)import pandas as pd,numpy as np ##Import libraries
+2)df=pd.read_csv("abc.csv") ##Load dataset into data frame
+3)df.dtypes
+  df['column_name'].dtype  ##gives datatypes
+4)df.size df.shape ##dimensions of data frame
+5)df['column_name']=df['column_name'].astype('int')  ##Datatype conversion
+  new_val=val.replace(',','') 
+  return float(new_val)         ##customize function for datavalue conversion and finally dataype conversion 
+6)EXTRA: df.rename(columns={'prev_name':'new_name'},inplace=True)  ##change column name
+	   df=df[df.column_name!='value']  ##delete record with certain values
+	   
+
+
+*Assignment 2*
+1)import pandas as pd,numpy as np ##Import libraries
+2)df=pd.read_csv("abc.csv") ##Load dataset into data frame
+3)df.dtypes
+  df['column_name'].dtype  ##gives datatypes
+4)df.size  ##dimensions of data frame
+5)##Converting categorical values into quantitative (only 2 categories)
+df["column_value"]=1*(df["column_name"]=="column_value") 
+OR
+df['column_name'].drop(columns=['name1','name2'])
+df['column_name'].replace(['value1','value2'],[0,1],inplace=True)
+6)##Converting categorical values into quantitative (more than 2 categories)
+df_dummy=pd.get_dummies(df['column_name'])
+df_new=pd.concat([df,df_dummy],axis=1)
+
+
+*Assignment 3*
+1)df.isnull().sum()  ##Outputs total number of null values in each column
+2)df.dropna(axis=0,inplace=True) ##all rows have null value in any column
+3)df=df.fillna(df.mean())
+  df=df.fillna(df.median())
+  df=df.fillna(df.mode())   ##replace null values with mean,median,mode
+4)from sklearn.preprocessing import MinMaxScaler        #change scale to 0-10
+scaler = MinMaxScaler(feature_range=(0,10))
+df[['math_score']] = scaler.fit_transform(df[['math_score']])
+df['math_score'] = df['math_score'].round(1)
+5)df.skew()
+
+
+
+*Assignment 4*
+1)Normalization cannot remove outliers 
+2)##Remove outliers using quartiles and box plots
+q1=df.quantile(0.25)
+q3=df.quantile(0.75)
+IQR=q3-q1
+LL= q1-(IQR*1.5)                 
+UL = q3+(IQR * 1.5)
+lower= df<LL
+upper=df>UL
+out=df[~(lower | upper).any(axis=1)]   
+df=out
+3)df['column_name'].plot(kind="box")
+
+
+
+
+*Assignment 5&6*
+1)df.describe()
+  df['column_name'].mean()/median()/std()/min()/max()  ##Initial statistics
+2)group=df.groupby('column_name')
+  g1=group.get_group('value')  ##Groupby certain categorical value
+
+EXTRA: df.groupby('column_name').mean()  ##group wise mean
+	 group.mean()  ##group wise mean
+
+
+*Assignment 11*
+1)import seaborn as sns
+2)sns.boxplot( df['Age'], df['Sex'],hue=df['Survived'])
+
+*Assignment 12*
+1)import seaborn as sns
+2)sns.histplot(data = df, x = "column_name", kde = True,hue='column_name')  ##Histogram
+3)sns.boxplot( df['Age'], df['Sex'],hue=df['Survived'])  ##Boxplot
+4)sns.scatterplot(data=df,x="column1",y="column2",hue="column3")
+
+
+*Asiignment 7*
+1)df.corr()  ##Corelation between columns
+2)from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+3)##Linear Regression
+X=dataset['RM'].values.reshape(-1,1)
+y=dataset['MEDV'].values.reshape(-1,1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+Lr = LinearRegression()  
+Lr.fit(X_train, y_train)
+y_pred=Lr.predict(X_test)
+
+4)##Extra info
+print(Lr.intercept_)
+print(Lr.coef_)
+df = pd.DataFrame({'Actual': y_test.flatten(), 'Predicted': y_pred.flatten()})
+plt.scatter(X_test, y_test,  color='gray')
+plt.plot(X_test, y_pred, color='red', linewidth=2)
+plt.show()
+
+5)##Errors
+print("MAE",mean_absolute_error(y_test,y_pred))
+print("MSE",mean_squared_error(y_test,y_pred))
+print("RMSE",np.sqrt(mean_squared_error(y_test,y_pred)))
+
+
+*Assignment 8*
+1)x = df.iloc[:, [2, 3]].values
+y = df.iloc[:, 4].values    ##Selecting columns
+
+2)##Logistic Regression
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y,test_size = 0.25,random_state = 0)
+from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+x_train = sc_X.fit_transform(x_train)
+x_test = sc_X.transform(x_test)
+from sklearn.linear_model import LogisticRegression
+lr=LogisticRegression()
+lr.fit(x_train,y_train)
+y_pred=lr.predict(x_test)
+print(y_pred)
+
+3)##Confusion Matrix
+from sklearn import metrics
+cm=metrics.confusion_matrix(y_test,y_pred)
+print(cm)
+cm1=metrics.confusion_matrix(y_test,y_pred)
+dis=metrics.ConfusionMatrixDisplay(confusion_matrix=cm1,display_labels=[False,True])
+dis.plot()
+
+4)accuracy=metrics.accuracy_score(y_test,y_pred)
+print(accuracy)
+precision=metrics.precision_score(y_test,y_pred)
+print(precision)
+recall=metrics.recall_score(y_test,y_pred)
+print(recall)
+
+
+
+
+*Assignment 9*
+1)##Selecting columns
+x=df.iloc[:,1:5].values
+y=df.iloc[:,-1].values
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+2)##Naive Bayes
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.25,random_state=0)
+print(X_train)
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix
+gaussian = GaussianNB()
+gaussian.fit(X_train, y_train)
+Y_pred = gaussian.predict(X_test) 
+cm = confusion_matrix(y_test, Y_pred)
+print('Confusion matrix for Naive Bayes\n',cm)
+
+3)##extra
+from sklearn import metrics
+accuracy=metrics.accuracy_score(y_test,y_pred)
+print(accuracy)
+precision=metrics.precision_score(y_test,y_pred)
+print(precision)
+recall=metrics.recall_score(y_test,y_pred)
+print(recall)
+
+
+
+*Assignment 10*
+1)import nltk
+2)##Tokenization
+from nltk.tokenize import sent_tokenize, word_tokenize
+tokenized_sent=sent_tokenize(text)
+tokenized_word=word_tokenize(text)
+
+3)##Frequency distribution of doc
+from nltk.probability import FreqDist
+freq = FreqDist(tokenize_word)
+freq.most_common(5)
+
+4)##Stop words removal
+from nltk.corpus import stopwords
+stop_words=set(stopwords.words("english"))
+print(stop_words)
+filtered_text = []
+tokenize_word = word_tokenize(string)
+for each_word in tokenize_word:
+    if each_word not in stop_words:
+        filtered_text.append(each_word)
+
+5)##Stemming
+stemmed1={}
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+for i in filtered1:
+    stemmed1.update({i : ps.stem(i)})
+
+6)##Lemmatization
+from nltk.stem import WordNetLemmatizer
+lem = WordNetLemmatizer()
+lemmed1 = {}
+for i in filtered1:
+    lemmed1.update({i:lem.lemmatize(i)})
+
+
+7)##POS Tag
+nltk.pos_tag(tokenized_word, tagset='universal')
+
+8)##Term Frequency
+term_frequency1 = {}
+for i in filtered1:
+    term_frequency1.update({i:(filtered1.count(i))/len(filtered1)})
+
+
+9)##Inverse term freq
+import math
+ifd1 = {}
+for i in filtered1:
+    cnt = 0;
+    if filtered1.count(i) > 0:
+        cnt += 1
+    if filtered2.count(i) > 0:
+        cnt += 1
+    f = math.log(2/cnt)
+    ifd1.update({i:f})
+

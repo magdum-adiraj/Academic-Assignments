@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT employees (employees)*>
+<!ELEMENT employees (eid,firstname,lastname,salary,city,age)>
+<!ELEMENT eid (#PCDATA)>
+<!ELEMENT firstname (#PCDATA)>
+<!ELEMENT lastname (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
