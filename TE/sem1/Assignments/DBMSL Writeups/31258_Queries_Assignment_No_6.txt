@@ -1,0 +1,172 @@
+
+					Name     :- Rushikesh KArbhari Palve
+					Roll No. :- 31258
+
+					Assignment No. 6
+
+/*
+	Problem statement :- 
+		Write a PL/SQL block of code using parameterized Cursor that will merge the
+        data available in the newly created table N_RollCall with the data available
+        in the table O_RollCall. If the data in the first table already exist in the
+        second table then that data should be skipped.
+*/
+
+
+mysql> CREATE TABLE O_Employee(
+    -> EmpId INT PRIMARY KEY,
+    -> EName VARCHAR(20),
+    -> DId VARCHAR(20),
+    -> DName VARCHAR(15)
+    -> );
+
+mysql> INSERT INTO O_Employee VALUES
+    -> (1, 'Vidyut', 10, 'Computer'),
+    -> (2, 'Pratap', 20,'IT'),
+    -> (3, 'Kailash', 30, 'E&TC'),
+    -> (4, 'Mukund', 40,'Mechanical'),
+    -> (5, 'Girish', 50,'Civil'),
+    -> (6, 'Neeraj', 60, 'Electrical'),
+    -> (7, 'Prashant', 30, 'E&TC'),
+    -> (8, 'Raj', 10, 'Computer'),
+    -> (9, 'Hari', 20,'IT'),
+    -> (10, 'Aditya', 40,'Mechanical');
+
+mysql> CREATE TABLE N_Employee(
+    -> EmpId INT PRIMARY KEY,
+    -> EName VARCHAR(20),
+    -> DId VARCHAR(20),
+    -> DName VARCHAR(15)
+    -> );
+
+mysql> # Procedure Without Cursor
+
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE Copy(
+    -> IN eID INT
+    -> )
+    -> BEGIN
+    -> DECLARE flag BOOLEAN;
+    -> DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'ENTRY NOT FOUND' AS EXCEPTION;
+    -> SET flag = FALSE;
+    -> IF NOT EXISTS(SELECT * FROM  O_Employee WHERE EmpId = eID) THEN
+    -> SIGNAL SQLSTATE '45000';
+    -> END IF;
+    -> IF NOT EXISTS(SELECT * FROM N_Employee WHERE EmpId = eID ) THEN
+    -> SET flag = TRUE;
+    -> INSERT INTO N_Employee
+    -> SELECT * FROM O_Employee
+    -> WHERE EmpId = eID;
+    -> END IF;
+    -> IF NOT flag THEN
+    -> SELECT 'Record Already Exists' AS MESSAGE;
+    -> ELSE
+    -> SELECT * FROM N_Employee;
+    -> END IF;
+    -> END $$
+
+
+
+
+mysql> # Procedure With Cursor
+
+
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE NewCopy(
+    -> IN eID INT
+    -> )
+    -> BEGIN
+    -> DECLARE flag BOOLEAN;
+    -> DECLARE C1 CURSOR FOR SELECT EmpId FROM O_Employee WHERE EmpId = eID;
+    -> OPEN C1;
+    -> FETCH C1 INTO eID;
+    -> SET flag = FALSE;
+    -> IF NOT EXISTS(SELECT * FROM N_Employee WHERE EmpId = eID ) THEN
+    -> SET flag = TRUE;
+    -> INSERT INTO N_Employee
+    -> SELECT * FROM O_Employee
+    -> WHERE EmpId = eID;
+    -> END IF;
+    -> IF NOT flag THEN
+    -> SELECT 'Record Already Exists' AS MESSAGE;
+    -> ELSE
+    -> SELECT * FROM N_Employee;
+    -> END IF;
+    -> CLOSE C1;
+    -> END $$
+
+
+
+
+mysql> DELIMITER ;
+mysql> CALL Copy(1);
+mysql> CALL Copy(2);
+mysql> CALL Copy(3);
+mysql> CALL Copy(4);
+mysql> CALL Copy(5);
+
++-------+---------+------+------------+
+| EmpId | EName   | DId  | DName      |
++-------+---------+------+------------+
+|     1 | Vidyut  | 10   | Computer   |
+|     2 | Pratap  | 20   | IT         |
+|     3 | Kailash | 30   | E&TC       |
+|     4 | Mukund  | 40   | Mechanical |
+|     5 | Girish  | 50   | Civil      |
++-------+---------+------+------------+
+
+
+
+
+mysql> CALL Copy(11);
+
++-----------------+
+| EXCEPTION       |
++-----------------+
+| ENTRY NOT FOUND |
++-----------------+
+
+
+
+
+mysql> CALL NewCopy(1);
+
++-----------------------+
+| MESSAGE               |
++-----------------------+
+| Record Already Exists |
++-----------------------+
+
+
+
+
+mysql> CALL NewCopy(6);
+mysql> CALL NewCopy(7);
+mysql> CALL NewCopy(8);
+mysql> CALL NewCopy(9);
+mysql> CALL NewCopy(10);
+
++-------+----------+------+------------+
+| EmpId | EName    | DId  | DName      |
++-------+----------+------+------------+
+|     1 | Vidyut   | 10   | Computer   |
+|     2 | Pratap   | 20   | IT         |
+|     3 | Kailash  | 30   | E&TC       |
+|     4 | Mukund   | 40   | Mechanical |
+|     5 | Girish   | 50   | Civil      |
+|     6 | Neeraj   | 60   | Electrical |
+|     7 | Prashant | 30   | E&TC       |
+|     8 | Raj      | 10   | Computer   |
+|     9 | Hari     | 20   | IT         |
+|    10 | Aditya   | 40   | Mechanical |
++-------+----------+------+------------+
+
+
+
+mysql> CALL NewCopy(11);
+
++-----------------+
+| EXCEPTION       |
++-----------------+
+| ENTRY NOT FOUND |
++-----------------+

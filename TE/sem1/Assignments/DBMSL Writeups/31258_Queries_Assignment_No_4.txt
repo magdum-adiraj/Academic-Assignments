@@ -1,0 +1,185 @@
+/* A]
+  Problem statement :- 
+	Consider Tables: 
+		1. Borrower(Roll_no, Name, DateofIssue, NameofBook, Status) 
+		2. Fine(Roll_no,Date,Amt) Accept Roll_no & NameofBook from user.
+        
+      Check the number of days (from date of issue),
+	  If days are between 15 to 30 then fine amount will be Rs 5per day.
+      If no. of days>30, per day fine will be Rs 50 per day & for days less than 30,
+		Rs. 5 per day. 
+      After submitting the book, status will change from I to R.
+      If condition of fine is true, then details will be stored into fine table.
+      Also handles the exception by named exception handler or user define exception 
+      handler.
+*/
+
+CREATE TABLE Borrower(
+    Roll_no INT PRIMARY KEY, 
+    Student_Name VARCHAR(20), 
+    DateOfIssue DATE, 
+    Book_Name VARCHAR(20) NOT NULL,
+    book_status CHAR(1) 
+    );
+    
+INSERT INTO Borrower VALUES
+    (1, 'TONY', '2021-08-31', 'DBMS', 'I'), 
+    (2, 'TIM', '2021-08-20', 'CNS', 'I'), 
+    (3, 'KIM', '2021-07-31', 'DSA', 'I'), 
+    (4, 'SAM', '2021-09-04', 'OOP', 'I'), 
+    (5, 'KEVIN', '2021-08-11', 'PPS', 'I');
+
+CREATE TABLE Fine(
+    Roll_no INT NOT NULL REFERENCES Borrower(Roll_no), 
+    DateOfReturn DATE, 
+    TotalDays INT, 
+    Amount INT
+    );
+
+
+delimiter $
+CREATE PROCEDURE ReturnBook(IN rno INT, IN Bname VARCHAR(30) )
+	BEGIN
+		DECLARE not_null INT DEFAULT 0;
+		proc_exit: BEGIN
+			DECLARE i_date DATE;
+			DECLARE diff INT;
+			DECLARE stat CHAR(1);
+			DECLARE EXIT HANDLER FOR 1048 SET not_null = 1; 
+            
+			SELECT DateOfIssue 
+				INTO i_date 
+				FROM borrower 
+				WHERE Roll_no = rno AND Book_Name = Bname;
+        
+			SELECT book_status 
+				INTO stat 
+				FROM Borrower 
+				WHERE Roll_no = rno AND Book_Name = Bname;
+    
+			IF stat = 'R' THEN
+				SELECT 'Book Already Returned !!' AS MESSAGE;
+				LEAVE proc_exit;
+			ELSE
+				UPDATE Borrower 
+					SET book_status = 'R' 
+					WHERE Roll_no = rno AND Book_Name = Bname;
+			END IF;
+    
+			SELECT datediff(curdate(), i_date) 
+				INTO diff;
+        
+			IF(diff > 15 AND diff <= 30) THEN
+				INSERT INTO Fine 
+					VALUES(rno, curdate(), diff, (diff*5) );
+                
+			ELSEIF (diff > 30) THEN
+				INSERT INTO Fine 
+					VALUES(rno, curdate(), diff, (diff*50) );
+			ELSE
+				INSERT INTO Fine 
+					VALUES(rno, curdate(), diff, 0);
+			END IF;
+		END;
+		IF not_null = 1 THEN
+			SELECT 'Unsuccessful Insert - NULL value' AS ERROR;
+		END IF;
+	END $
+
+delimiter ;
+CALL ReturnBook(1, 'DBMS');
+CALL ReturnBook(2, 'CNS');
+CALL ReturnBook(3, 'DSA');
+CALL ReturnBook(4, 'OOP');
+CALL ReturnBook(5, 'PPS');
+
+
+SELECT * FROM Borrower;
++---------+--------------+-------------+-----------+-------------+
+| Roll_no | Student_Name | DateOfIssue | Book_Name | book_status |
++---------+--------------+-------------+-----------+-------------+
+|       1 | TONY         | 2021-08-31  | DBMS      | R           |
+|       2 | TIM          | 2021-08-20  | CNS       | R           |
+|       3 | KIM          | 2021-07-31  | DSA       | R           |
+|       4 | SAM          | 2021-09-04  | OOP       | R           |
+|       5 | KEVIN        | 2021-08-11  | PPS       | R           |
++---------+--------------+-------------+-----------+-------------+
+
+
+SELECT * FROM Fine;
++---------+--------------+-----------+--------+
+| Roll_no | DateOfReturn | TotalDays | Amount |
++---------+--------------+-----------+--------+
+|       1 | 2021-09-14   |        14 |      0 |
+|       2 | 2021-09-14   |        25 |    125 |
+|       3 | 2021-09-14   |        45 |   2250 |
+|       4 | 2021-09-14   |        10 |      0 |
+|       5 | 2021-09-14   |        34 |   1700 |
++---------+--------------+-----------+--------+
+
+
+
+
+
+/* B]
+  Problem statement :-
+	Write a PL/SQL code block to calculate the area of a circle for a value of radius 
+    varying from 5 to 9. Store the radius and the corresponding values of calculated
+    area in an empty table named areas, consisting of two columns, radius and area. 
+
+	Note: Instructor will frame the problem statement for writing PL/SQL block in line
+		  with above statement.
+*/
+
+CREATE TABLE Area_C(
+    Radius INT PRIMARY KEY,
+    AreaOfCircle FLOAT
+    );
+
+delimiter $$
+CREATE PROCEDURE Circle_Area(IN r1 INT, IN r2 INT)
+	BEGIN
+		DECLARE not_null INT DEFAULT 0;
+        
+		BEGIN
+			DECLARE rad INT;
+			DECLARE EXIT HANDLER FOR 1048 SET not_null = 1; 
+			SET rad = r1;
+			st : LOOP
+				IF rad = 0 then
+					INSERT INTO Area_C 
+						VALUES(NULL, 3.14159*rad*rad);
+				ELSE
+					INSERT INTO Area_C 
+						VALUES(rad, 3.14159*rad*rad);
+				END IF;
+            
+				IF rad = r2 THEN
+					LEAVE st;
+				END IF;
+                
+				SET rad = rad+1;
+			END LOOP st;
+            
+			SELECT * FROM Area_C;
+		END;
+    
+		IF not_null = 1 THEN
+			SELECT 'Unsuccessful Insert - NULL value' AS ERROR;
+		END IF;
+	END $$
+
+delimiter ;
+CALL Circle_Area(5,9);
+
++--------+--------------+
+| Radius | AreaOfCircle |
++--------+--------------+
+|      5 |      78.5397 |
+|      6 |      113.097 |
+|      7 |      153.938 |
+|      8 |      201.062 |
+|      9 |      254.469 |
++--------+--------------+
+
+

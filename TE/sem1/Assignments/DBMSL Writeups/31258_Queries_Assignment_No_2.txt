@@ -1,0 +1,260 @@
+										Name :- Rushikesh Karbhari Palve
+										Roll No. :- 31258
+
+-- 1. Insert at least 10 records in customer table and insert other tables accordingly
+
+
+-- 2. Display all customer details with city pune or mumbai and customer first name 
+-- starting with 'p' or 'h'.
+
+SELECT * FROM Customers 
+	WHERE Customer_City IN('Pune', 'Mumbai') 
+    AND Customer_FName LIKE 'P%' OR Customer_FName LIKE 'H%';
+
++-------------+----------------+----------------+------------------+------------------+---------------+----------------+
+| Customer_No | Customer_FName | Customer_LName | Customer_Company | Customer_Address | Customer_City | Customer_Phone |
++-------------+----------------+----------------+------------------+------------------+---------------+----------------+
+|         200 | Pratap         | Deshmukh       | Google           | Nariman Point    | Mumbai        | 987425613      |
+|         900 | Hari           | Holkar         | Electronic Arts  | Hadapsar         | Pune          | 904258371      |
++-------------+----------------+----------------+------------------+------------------+---------------+----------------+
+
+
+
+-- 3. lists the number of different customer cities.(use of distinct)
+
+SELECT DISTINCT Customer_City FROM Customers;
+
++---------------+
+| Customer_City |
++---------------+
+| Ahmednagar    |
+| Aurangabad    |
+| Mumbai        |
+| Nagpur        |
+| Nashik        |
+| Pune          |
++---------------+
+
+
+
+-- 4. Give 5% increase in price of the books with publishing year 2015.(use of update)
+
+SELECT ISBN, Title, Unit_Price, (Unit_Price + 0.05*Unit_Price) AS New_Price
+	FROM Books 
+	WHERE Pub_year = 2015;
+
++---------------+---------------------+------------+--------------------+
+| ISBN          | Title               | Unit_Price | New_Price          |
++---------------+---------------------+------------+--------------------+
+| 9134-64-11-3  | The October Country |     480.46 | 504.48299102783204 |
+| 99144-66-21-9 | Of Mice and Men     |        150 |              157.5 |
++---------------+---------------------+------------+--------------------+
+
+
+
+-- 5. Delete customer details living in pune.
+
+DELETE FROM Customers WHERE Customer_City = 'Pune';
+
++-------------+----------------+----------------+------------------+-----------------------+---------------+----------------+
+| Customer_No | Customer_FName | Customer_LName | Customer_Company | Customer_Address      | Customer_City | Customer_Phone |
++-------------+----------------+----------------+------------------+-----------------------+---------------+----------------+
+|         200 | Pratap         | Deshmukh       | Google           | Nariman Point         | Mumbai        | 987425613      |
+|         300 | Kailash        | Chandekar      | Oracle           | Collector Office Area | Ahmednagar    | 784562143      |
+|         400 | Mukund         | Bapat          | Kimberly-Clark   | Panchawati            | Nashik        | 887425631      |
+|         500 | Girish         | Deshpande      | Tyson Foods      | Cidco                 | Aurangabad    | 914628746      |
+|         600 | Neeraj         | Kulkarni       | SC Johnson       | Kandivili West        | Mumbai        | 964782348      |
+|         700 | Prashant       | Gavaskar       | Dole Foods       | Gorepeth              | Nagpur        | 983214569      |
+|         800 | Raj            | Bhede          | Flowers foods    | Gangapur Road         | Nashik        | 964782555      |
+|         991 | Aditya         | Kamble         | Starbucks        | Shahgunj              | Aurangabad    | 952764813      |
++-------------+----------------+----------------+------------------+-----------------------+---------------+----------------+
+
+
+
+-- 6. Find the names of authors living in India or Australia (use of UNION)
+
+SELECT Author_name, Author_Country FROM Authors
+	WHERE Author_Country = 'India'
+	UNION ALL 
+	SELECT Author_name, Author_Country FROM Authors 
+	WHERE Author_Country = 'Australia';
+
++-------------+----------------+
+| Author_name | Author_Country |
++-------------+----------------+
+| Singh       | India          |
+| Kaur        | India          |
+| Patel       | India          |
+| Kumar       | India          |
+| Kumar       | India          |
+| Narayan     | India          |
+| Smith       | Australia      |
+| Jones       | Australia      |
+| Johnson     | Australia      |
++-------------+----------------+
+
+
+
+-- 7. Find the publishers who are established in year 2015 as well as in 2016
+
+SELECT Publisher_Name, estab_year FROM Publishers 
+	WHERE estab_year IN (2015, 2016);
+
++---------------------+------------+
+| Publisher_Name      | estab_year |
++---------------------+------------+
+| Best Progress       |       2016 |
+| Publishing Exports  |       2015 |
+| Prospect Park Books |       2015 |
+| Rare Bird Books     |       2016 |
++---------------------+------------+
+
+
+
+-- 8. Find the book having maximum price and find titles of book having price between
+-- 300 and 400.(use of max and between)
+
+SELECT Title, MAX(Unit_Price) AS Max_Price FROM Books;
+
++---------------------+-----------+
+| Title               | Max_Price |
++---------------------+-----------+
+| The October Country |    480.46 |
++---------------------+-----------+
+
+
+
+SELECT Title, Unit_Price FROM Books 
+	WHERE Unit_Price BETWEEN 300 AND 400;
+
++-------------------------+------------+
+| Title                   | Unit_Price |
++-------------------------+------------+
+| House of Leaves         |      313.2 |
+| Wuthering Heights       |     333.24 |
+| A Ring of Endless Light |     346.33 |
++-------------------------+------------+
+
+
+
+-- 9. Display all titles of books with price and published year in decreasing order of
+-- publishing year.
+
+SELECT Title, Unit_Price, Pub_year FROM Books
+	ORDER BY Pub_year DESC;
+
++-------------------------+------------+----------+
+| Title                   | Unit_Price | Pub_year |
++-------------------------+------------+----------+
+| The October Country     |     480.46 |     2015 |
+| Of Mice and Men         |        150 |     2015 |
+| Wuthering Heights       |     333.24 |     2010 |
+| Wide Sargasso Sea       |      220.4 |     2006 |
+| The Art of Drowning     |     178.61 |     2005 |
+| House of Leaves         |      313.2 |     2004 |
+| Full Darks, No Stars    |      425.5 |     2004 |
+| The Radiance of Pigs    |        255 |     2003 |
+| A Ring of Endless Light |     346.33 |     2001 |
+| The Lives of the Heart  |     142.56 |     2000 |
++-------------------------+------------+----------+
+
+
+
+-- 10. Display title,author_no and publisher_no of all books published in 2000, 2004,
+-- 2006. (use of IN)
+
+SELECT Title, Author_no, Publisher_no, Pub_year FROM Books
+	WHERE Pub_year IN (2000, 2004, 2006);
++------------------------+-----------+--------------+----------+
+| Title                  | Author_no | Publisher_no | Pub_year |
++------------------------+-----------+--------------+----------+
+| House of Leaves        |      1911 |        15332 |     2004 |
+| Wide Sargasso Sea      |      1956 |        16456 |     2006 |
+| Full Darks, No Stars   |      1300 |        10444 |     2004 |
+| The Lives of the Heart |      1001 |        10486 |     2000 |
++------------------------+-----------+--------------+----------+
+
+
+
+-- 11.Create view showing the books and authors details. (COMPLEX VIEW)
+
+CREATE VIEW Title_Authors
+	AS SELECT B.Title, A.Author_name
+	FROM Books B , Authors A 
+    WHERE B.Author_no = A.Author_no;
+
+SELECT * FROM Title_Authors;
+
++-------------------------+-------------+
+| Title                   | Author_name |
++-------------------------+-------------+
+| The October Country     | Kumar       |
+| The Radiance of Pigs    | Kaur        |
+| The Art of Drowning     | Jones       |
+| House of Leaves         | Kumar       |
+| Wuthering Heights       | Wilson      |
+| Wide Sargasso Sea       | Narayan     |
+| Full Darks, No Stars    | Patel       |
+| The Lives of the Heart  | Singh       |
+| Of Mice and Men         | Johnson     |
+| A Ring of Endless Light | Smith       |
++-------------------------+-------------+
+
+
+
+-- INDEX :-
+
+-- A] Simple Index :-
+
+CREATE INDEX Sim_Cust_indx ON Customers(Customer_city);
+
+SELECT * FROM Customers USE INDEX(Sim_Cust_indx)
+	WHERE Customer_city = 'Mumbai';
+
+
+-- B] Composite Index :-
+
+CREATE INDEX Com_Cust_indx ON Customers(Customer_Company,Customer_City);
+
+SELECT * FROM Customers USE INDEX(Com_Cust_indx)
+	WHERE Customer_city = 'Mumbai'and Customer_Company = 'Google';
+
+    
+-- C] Unique Index :-
+
+CREATE UNIQUE INDEX Uniq_Cust_indx ON Customers(Customer_No);
+
+SELECT * FROM Customers USE INDEX(Uniq_Cust_indx)
+	WHERE Customer_Phone = 952764813;
+
+
+
+-- SEQUENCE :-
+
+CREATE TABLE Persons(
+	P_Number INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	RollNo INT,
+	P_Name VARCHAR(5)
+	);
+ALTER TABLE Persons AUTO_INCREMENT = 50;
+INSERT INTO Persons (RollNo, P_Name) VALUES
+	(11, 'A'),
+    (12, 'B'),
+    (13, 'C');
+
+SELECT * FROM Persons;
+
++----------+--------+--------+
+| P_Number | RollNo | P_Name |
++----------+--------+--------+
+|       50 |     11 | A      |
+|       51 |     12 | B      |
+|       52 |     13 | C      |
++----------+--------+--------+
+
+
+-- SYNONYM :-   
+
+CALL SYS.CREATE_SYNONYM_DB('assignment_no_2', 'db_2');
+
+

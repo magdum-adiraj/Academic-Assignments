@@ -1,0 +1,204 @@
+										Name :- Rushikesh Karbhari Palve
+										Roll No. :- 31258
+
+
+
+-- 1. Find the professor details and department details using NATURAL JOIN.
+
+SELECT P.Prof_id, Prof_fname, Prof_lname, D.Dept_id, D.Dept_name, P.designation 
+	FROM Professors P 
+    NATURAL JOIN Departments D;
+
++---------+------------+------------+---------+------------+---------------------+
+| Prof_id | Prof_fname | Prof_lname | Dept_id | Dept_name  | designation         |
++---------+------------+------------+---------+------------+---------------------+
+|     101 | TONY       | STARK      |      10 | Computer   | Assistant Professor |
+|     102 | TIM        | ADOLF      |      10 | Computer   | Associate Professor |
+|     103 | KIM        | JARVIS     |      20 | IT         | Professor           |
+|     104 | SAM        | MILES      |      30 | E&TC       | Associate Professor |
+|     105 | KEVIN      | HILL       |      50 | Civil      | Assistant Professor |
+|     106 | CONNIE     | SMITH      |      40 | Mechanical | Professor           |
+|     107 | ALFRED     | KINSLEY    |      20 | IT         | Professor           |
+|     108 | PAUL       | TIMOTHY    |      10 | Computer   | Associate Professor |
+|     109 | JOHN       | ASGHAR     |      30 | E&TC       | Assistant Professor |
+|     110 | ROSE       | SUMMERS    |      50 | Civil      | Associate Professor |
++---------+------------+------------+---------+------------+---------------------+
+
+
+
+
+-- 2. Find the prof_id, prof_name and shift. (INNER JOIN)
+
+SELECT P.Prof_id, Prof_fname, Prof_lname, S.Shift
+	FROM Professors P 
+	INNER JOIN  Shift S 
+    ON P.Prof_id = S.Prof_id;
+
++---------+------------+------------+---------+
+| Prof_id | Prof_fname | Prof_lname | Shift   |
++---------+------------+------------+---------+
+|     101 | TONY       | STARK      | Morning |
+|     102 | TIM        | ADOLF      | Evening |
+|     103 | KIM        | JARVIS     | Morning |
+|     104 | SAM        | MILES      | Morning |
+|     105 | KEVIN      | HILL       | Evening |
+|     106 | CONNIE     | SMITH      | Morning |
+|     107 | ALFRED     | KINSLEY    | Evening |
+|     108 | PAUL       | TIMOTHY    | Morning |
+|     109 | JOHN       | ASGHAR     | Morning |
+|     110 | ROSE       | SUMMERS    | Evening |
++---------+------------+------------+---------+
+
+
+
+-- 3. List all the department details and the corresponding names of professors in the
+--  same department.(left outer join)
+
+SELECT D.Dept_name, P.Prof_fname, P.Prof_lname 
+	FROM Departments D
+    LEFT JOIN Professors P
+    ON D.Dept_id = P.Dept_id;
+
++------------+------------+------------+
+| Dept_name  | Prof_fname | Prof_lname |
++------------+------------+------------+
+| Computer   | TONY       | STARK      |
+| Computer   | TIM        | ADOLF      |
+| Computer   | PAUL       | TIMOTHY    |
+| IT         | KIM        | JARVIS     |
+| IT         | ALFRED     | KINSLEY    |
+| E&TC       | SAM        | MILES      |
+| E&TC       | JOHN       | ASGHAR     |
+| Mechanical | CONNIE     | SMITH      |
+| Civil      | KEVIN      | HILL       |
+| Civil      | ROSE       | SUMMERS    |
+| Electrical | NULL       | NULL       |
++------------+------------+------------+
+
+
+
+-- 4. List all the professors and the corresponding names of department.
+-- (right outer join)
+
+SELECT P.Prof_fname, P.Prof_lname, D.Dept_name
+	FROM Professors P
+    RIGHT JOIN Departments D
+
++------------+------------+------------+
+| Prof_fname | Prof_lname | Dept_name  |
++------------+------------+------------+
+| TONY       | STARK      | Computer   |
+| TIM        | ADOLF      | Computer   |
+| PAUL       | TIMOTHY    | Computer   |
+| KIM        | JARVIS     | IT         |
+| ALFRED     | KINSLEY    | IT         |
+| SAM        | MILES      | E&TC       |
+| JOHN       | ASGHAR     | E&TC       |
+| CONNIE     | SMITH      | Mechanical |
+| KEVIN      | HILL       | Civil      |
+| ROSE       | SUMMERS    | Civil      |
+| NULL       | NULL       | Electrical |
++------------+------------+------------+
+
+
+
+-- 5. Display professor name, dept_name, shift, salary where prof_id = 101
+-- (multitable join)
+
+SELECT P.Prof_id, P.Prof_fname, P.Prof_lname, D.Dept_name, S.Shift, P.salary
+	FROM Professors P
+	JOIN  Departments D ON P.prof_id = 101 AND D.Dept_id = P.Dept_id
+	JOIN Shift S ON S.prof_id = 101;
+    ON P.Dept_id = D.Dept_id ;
+
++---------+------------+------------+-----------+---------+--------+
+| Prof_id | Prof_fname | Prof_lname | Dept_name | Shift   | salary |
++---------+------------+------------+-----------+---------+--------+
+|     101 | TONY       | STARK      | Computer  | Morning |  65000 |
++---------+------------+------------+-----------+---------+--------+
+
+
+
+-- 6. list the total number of professor in each department.
+-- (count and any join,groupby)
+
+SELECT D.Dept_name, COUNT(P.Prof_id) AS noOfProf
+	FROM (Professors P
+    INNER JOIN Departments D 
+    ON P.Dept_id = D.Dept_id)
+    GROUP BY Dept_name;
+
++------------+----------+
+| Dept_name  | noOfProf |
++------------+----------+
+| Computer   |        3 |
+| IT         |        2 |
+| E&TC       |        2 |
+| Mechanical |        1 |
+| Civil      |        2 |
++------------+----------+
+
+
+
+-- 7. List the prof_id associated department and the dept_name having name ‘computer’
+-- (subquery)
+
+SELECT Prof_id, Prof_fname, Prof_lname
+	FROM Professors  
+    WHERE Dept_id =
+    (SELECT Dept_id 
+        FROM Departments
+        WHERE Dept_name = 'Computer');
+
++---------+------------+------------+
+| Prof_id | Prof_fname | Prof_lname |
++---------+------------+------------+
+|     101 | TONY       | STARK      |
+|     102 | TIM        | ADOLF      |
+|     108 | PAUL       | TIMOTHY    |
++---------+------------+------------+
+
+
+
+-- 8. Find the names of all departments where the professors joined in year 2015
+-- (or date of joining is 1-1-2015).(subquery)
+
+SELECT DISTINCT Dept_name
+	FROM Departments 
+	NATURAL JOIN professors 
+    WHERE YEAR(Date_of_join) = '2015';
+        WHERE Dept_name = 'Computer');
+
++------------+
+| Dept_name  |
++------------+
+| Computer   |
+| E&TC       |
+| Mechanical |
++------------+
+
+
+
+-- VIEW :-
+
+CREATE VIEW Dept_Professors
+	AS SELECT P.Prof_fname, P.Prof_lname, D.Dept_name 
+	FROM Departments D, Professors P 
+    WHERE D.Dept_id = P.Dept_id;
+
+SELECT * FROM Dept_Professors;
+
++------------+------------+------------+
+| Prof_fname | Prof_lname | Dept_name  |
++------------+------------+------------+
+| TONY       | STARK      | Computer   |
+| TIM        | ADOLF      | Computer   |
+| KIM        | JARVIS     | IT         |
+| SAM        | MILES      | E&TC       |
+| KEVIN      | HILL       | Civil      |
+| CONNIE     | SMITH      | Mechanical |
+| ALFRED     | KINSLEY    | IT         |
+| PAUL       | TIMOTHY    | Computer   |
+| JOHN       | ASGHAR     | E&TC       |
+| ROSE       | SUMMERS    | Civil      |
++------------+------------+------------+
