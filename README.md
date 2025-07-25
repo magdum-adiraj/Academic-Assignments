@@ -18,3 +18,23 @@ The repository is organized semester-wise and subject-wise. Each folder includes
 - Data Structures and Algorithms Lab Practicals
 - Microprocessor Lab Practicals
 - Problem-Based Learning (PBL) Project
+
+### Semester 5
+- Computer Networks and Security Lab Practicals
+- Laboratory Practicals -1 (OS and HCI assignments)
+
+### Semester 6
+- Data Science and Big Data Analytics Lab Practicals and Mini Project
+- Laboratory Practicals -2 (AI and Information Security assignments)
+- Web Technology Lab Practicals and mini project
+
+### Semester 7
+- Laboratory Practicals -4 (Cyber Security and Digital Forencis and Information Retrieval assignments)
+
+### Semester 8
+- Laboratory Practicals -5 (Deep Learning and HPC assignments)
+- Laboratory Practicals -6 (NLP and Pattern Recognition assignments)
+
+### Seminar (Code and report)
+
+### TE (Third year assignment writeups and refernce theory material)
